@@ -14,10 +14,21 @@ export function middleware(request: NextRequest) {
     'upgrade-insecure-requests',
   ].join('; ');
 
-  const res = NextResponse.next();
+  // propagate nonce to server components via request headers
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-nonce', nonce);
+
+  const res = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
+
+  // set CSP on the response
   res.headers.set('Content-Security-Policy', csp);
-  // expose nonce to the React tree
+  // expose nonce to the browser (useful for debugging)
   res.headers.set('x-nonce', nonce);
+
   return res;
 }
 
