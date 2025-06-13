@@ -9,7 +9,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import reactHooks from 'eslint-plugin-react-hooks';
 
 /**
- * Flat ESLint configuration aligned with Next.js 15 best‑practice “web‑vitals” preset
+ * Flat ESLint configuration aligned with Next.js 15 best‑practice "web‑vitals" preset
  * plus stricter TypeScript rules, Prettier formatting, React‑specific hook checks,
  * import hygiene and filename / path conventions.
  */
@@ -105,6 +105,11 @@ const eslintConfig = [
             '**/tests/**',
             '**/scripts/**',
             'playwright.config.ts',
+            'vitest.config.ts',
+            'vitest.config.browser.ts',
+            'eslint.config.mjs',
+            'next.config.ts',
+            'postcss.config.mjs',
           ],
         },
       ],
@@ -160,6 +165,12 @@ const eslintConfig = [
           leadingUnderscore: 'allow',
         },
         { selector: 'typeLike', format: ['PascalCase'] },
+        // Allow __filename and __dirname in config files
+        {
+          selector: 'variable',
+          filter: { regex: '^__(filename|dirname)$', match: true },
+          format: null,
+        },
       ],
       '@typescript-eslint/no-unnecessary-type-assertion': 'error',
       '@typescript-eslint/consistent-type-imports': [
