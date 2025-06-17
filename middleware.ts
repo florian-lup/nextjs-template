@@ -64,14 +64,14 @@ export function middleware(request: NextRequest) {
 
 /**
  * Apply middleware only to non-static paths
- * Exclude API routes, static files, images, and favicon
+ * Exclude API routes, static files, images, favicon, and image generation routes
  * Also exclude prefetch requests
  */
 export const config = {
   matcher: [
     {
       source:
-        '/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)',
+        '/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|opengraph-image|twitter-image|icon|apple-icon).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
