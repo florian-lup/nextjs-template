@@ -33,5 +33,22 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    // Build outputs
+    ".next/cache/**/*",
+    ".next/static/**/*",
+    ".next/server/**/*",
+    "out",
+    "build",
+    "dist",
+    // Test and cache directories
+    "coverage",
+    "test-results",
+    "playwright-report",
+    "blob-report",
+    ".cache",
+    // Generated files
+    "*.tsbuildinfo"
+  ]
 }
